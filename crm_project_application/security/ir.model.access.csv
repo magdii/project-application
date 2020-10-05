@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+crm_project_application_stages,crm_project_application_stages,model_crm_project_application_stages,,1,1,1,1
+crm_project_application_role,crm_project_application_role,model_crm_project_application_role,,1,1,1,1
+crm_project_application,crm_project_application,model_crm_project_application,,1,1,1,1
+project_application_line,project_application_line,model_project_application_line,,1,1,1,1
+contractor_lines,contractor_lines,model_contractor_lines,,1,1,1,1

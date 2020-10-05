@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--    crm.project.application.stages-->
+    <record id="crm_project_application_stages_form" model="ir.ui.view">
+        <field name="name">crm.project.application.stages.form</field>
+        <field name="model">crm.project.application.stages</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_project_application_stages_tree" model="ir.ui.view">
+        <field name="name">crm.project.application.stages.tree</field>
+        <field name="model">crm.project.application.stages</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_project_application_stages_action" model="ir.actions.act_window">
+            <field name="name">Stages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.project.application.stages</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+    <!--    crm.project.application.stages-->
+
+    <!--    crm_project_application_role-->
+    <record id="crm_project_application_role_form" model="ir.ui.view">
+        <field name="name">crm.project.application.role.form</field>
+        <field name="model">crm.project.application.role</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_project_application_role_tree" model="ir.ui.view">
+        <field name="name">crm.project.application.role.tree</field>
+        <field name="model">crm.project.application.role</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_project_application_role_action" model="ir.actions.act_window">
+            <field name="name">Contractor Roles</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.project.application.role</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+    <!--    crm_project_application_role-->
+
+    <!--    crm.project.application-->
+    <record id="crm_project_application_form" model="ir.ui.view">
+        <field name="name">crm.project.application.form</field>
+        <field name="model">crm.project.application</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="start_date" />
+                            <field name="end_date" />
+                        </group>
+                        <group>
+                            <field name="amount" />
+                            <field name="description" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Applications" name="Applications" >
+                            <field name="application_line_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="description"/>
+                                    </group>
+
+                                </form>
+                            </field>
+                        </page>
+
+                        <page string="Contractors" name="Contractors" >
+                            <field name="contractor_line_ids">
+                                <tree editable="bottom">
+                                    <field name="application_id"/>
+                                    <field name="contractor_id" domain="[('is_company', '=', True)]" />
+                                    <field name="role_id"/>
+                                    <field name="involved_contact_id"
+                                    domain="[('parent_id','=',contractor_id)]"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="application_id"/>
+                                        <field name="contractor_id" domain="[('is_company', '=', True)]" />
+                                        <field name="role_id"/>
+                                        <field name="involved_contact_id"
+                                        domain="[('parent_id','=',contractor_id)]"/>
+                                    </group>
+
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_project_application_tree" model="ir.ui.view">
+        <field name="name">crm.project.application.tree</field>
+        <field name="model">crm.project.application</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name" />
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="amount" />
+                <field name="description" />
+                <field name="stage_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_project_application_kanban" model="ir.ui.view">
+        <field name="name">crm.project.application.kanban</field>
+        <field name="model">crm.project.application</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id">
+                <field name="name" />
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="amount" />
+                <field name="description" />
+                <field name="stage_id" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_crm_project_kanban">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                <div class="o_kanban_tags_section"/>
+                                    <ul>
+                                        <li>Start Date : <field name="start_date"/></li>
+                                        <li>End Date : <field name="end_date"/></li>
+                                        <li>Amount : <field name="amount"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="crm_project_application_action" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.project.application</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+    <!--   crm.project.application-->
+
+
+    <!--    crm.project Form-->
+    <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+        <field name="name">crm.lead</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="crm_project_application_id" />
+                <field name="application_id" domain="[('crm_project_application_id','=',crm_project_application_id)]"/>
+                <field name="contractor_id"  domain="[('crm_project_application_id','=',crm_project_application_id)]"/>
+            </xpath>
+        </field>
+    </record>
+    <!--    crm.project Form-->
+
+
+
+
+    <menuitem id="crm_project_application_root"
+              name="Projects"
+    />
+
+
+    <menuitem id="crm_project_application_menu"
+              name="Projects"
+              parent="crm_project_application_root"
+              sequence="2"
+    />
+
+
+    <menuitem id="crm_project_application_action_menu"
+              name="Project Request"
+              action="crm_project_application_action"
+              parent="crm_project_application_menu"
+              sequence="4"
+    />
+
+
+    <menuitem id="crm_project_application_role_menu"
+              name="Contractor Roles"
+              action="crm_project_application_role_action"
+              parent="crm_project_application_root"
+              sequence="6"
+    />
+    <menuitem id="crm_project_application_stages_action_menu"
+              name="Stages"
+              action="crm_project_application_stages_action"
+              parent="crm_project_application_root"
+              sequence="8"
+    />
+
+</odoo>
